@@ -1,7 +1,7 @@
 library(splines)
 library(brms)
 library(ggplot2)
-setwd(getSrcDirectory()[1])
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 test_mode <- FALSE
 
@@ -29,7 +29,7 @@ for(marker in columns){
     print(formula)
     print(paste("NA: ", sum(is.na(patient_grp[marker]))))
     print(paste("Availible:", sum(!is.na(patient_grp[marker]))))
-    print()
+    print("")
   
     fit <- brm(formula, data=patient_grp, iter=2000, chains=1)
     summary(fit)
