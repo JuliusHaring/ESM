@@ -12,7 +12,7 @@ test_grp <- filtered[filtered$REGISTRATION_ID > 2,]
 
 columns <- names(patient_grp)
 columns <- columns[grepl("ESM_", columns)]
-columns <- columns[-1] # Removes ESM_ABDPAIN (target)
+columns <- columns[!columns %in% c("ESM_ABDPAIN","ESM_START","ESM_END")] # Removes ESM_ABDPAIN (target)
 
 if(test_mode){
   patient_grp <- patient_grp[0:100,]
