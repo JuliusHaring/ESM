@@ -37,7 +37,7 @@ for(marker in columns){
     
     fname <- paste("../images/",marker,".jpeg", sep="")
     jpeg(filename = fname,width=3.25,height=3.25,units="in",res=300)
-    print(plot(marginal_effects(fit), ask=FALSE, plot=FALSE)[[1]] + scale_y_continuous(limits=c(0,10)) + ggplot2::ylim(1, 11) + ggplot2::xlim(0,10) + ggplot2::ggtitle(paste("ESM_ABDPAIN vs.",marker)))
+    print(plot(marginal_effects(fit), ask=FALSE, plot=FALSE)[[1]] + ggplot2::xlim(0,10) + ggplot2::ylim(1,11) + ggplot2::ggtitle(paste("ESM_ABDPAIN vs.",marker)) +scale_y_continuous(name="Test", limits=c(0, 10)))
     dev.off()
     dev.off()
   })
