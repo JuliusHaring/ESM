@@ -8,6 +8,7 @@ test_mode <- FALSE
 filtered <- read.csv("../data/filtered.csv")
 
 patient_grp <- filtered[filtered$REGISTRATION_ID < 2,]
+patient_grp$ESM_ABDPAIN2 <- patient_grp$ESM_ABDPAIN + 1
 test_grp <- filtered[filtered$REGISTRATION_ID > 2,]
 
 columns <- names(patient_grp)
@@ -21,22 +22,22 @@ if(test_mode){
 
 for(marker in columns){
   try({
-    formula <- paste("ESM_ABDPAIN~","s(",marker,",by=REGISTRATION_ID, bs='fs')")
+    formula <- paste("ESM_ABDPAIN2~","s(",marker,",by=REGISTRATION_ID, bs='fs')")
     if(test_mode){
-      formula <- paste("ESM_ABDPAIN~","s(",marker,")")
+      formula <- paste("ESM_ABDPAIN2~","",marker)
     }
     formula <- as.formula(formula)
     print(formula)
     print(paste("NA: ", sum(is.na(patient_grp[marker]))))
     print(paste("Availible:", sum(!is.na(patient_grp[marker]))))
     print("")
-  
+
     fit <- brm(formula, data=patient_grp, iter=2000, chains=1)
     summary(fit)
     
     fname <- paste("../images/",marker,".jpeg", sep="")
     jpeg(filename = fname,width=3.25,height=3.25,units="in",res=300)
-    print(plot(marginal_effects(fit), ask=FALSE, plot=FALSE)[[1]] + ggplot2::ylim(0, 10) + ggplot2::xlim(0,10) + ggplot2::ggtitle(paste("ESM_ABDPAIN vs.",marker)))
+    print(plot(marginal_effects(fit), ask=FALSE, plot=FALSE)[[1]] + scale_y_continuous(limits=c(0,10)) + ggplot2::ylim(0, 10) + ggplot2::xlim(0,10) + ggplot2::ggtitle(paste("ESM_ABDPAIN vs.",marker)))
     dev.off()
     dev.off()
   })
