@@ -29,7 +29,7 @@ for(marker in columns){
     formula <- as.formula(formula)
     print(formula)
     print(paste("NA: ", sum(is.na(patient_grp[marker]))))
-    print(paste("Availible:", sum(!is.na(patient_grp[marker]))))
+    print(paste("Available:", sum(!is.na(patient_grp[marker]))))
     print("")
 
     fit <- brm(formula, data=patient_grp, iter=2000, chains=1)
@@ -37,7 +37,7 @@ for(marker in columns){
     
     fname <- paste("../images/",marker,".jpeg", sep="")
     jpeg(filename = fname,width=3.25,height=3.25,units="in",res=300)
-    print(plot(marginal_effects(fit), ask=FALSE, plot=FALSE)[[1]] + ggplot2::xlim(0,10) + ggplot2::ylim(1,11) + ggplot2::ggtitle(paste("ESM_ABDPAIN vs.",marker)) +scale_y_continuous(name="Test", limits=c(0, 10)))
+    print(plot(marginal_effects(fit), ask=FALSE, plot=FALSE)[[1]] + ggplot2::xlim(0,10) + ggplot2::ylim(1,11) +scale_y_continuous(name="ESM_ABDPAIN", limits=c(0, 10)))
     dev.off()
     dev.off()
   })
