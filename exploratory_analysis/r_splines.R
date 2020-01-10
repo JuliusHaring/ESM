@@ -21,6 +21,8 @@ if(test_mode){
   columns <- c("ESM_GAS2","ESM_GAS1")
 }
 
+to_test <- patient_grp
+
 for(marker in columns){
   try({
     formula <- paste("ESM_ABDPAIN2~","s(",marker,",by=REGISTRATION_ID, bs='fs')")
@@ -29,11 +31,11 @@ for(marker in columns){
     }
     formula <- as.formula(formula)
     print(formula)
-    print(paste("NA: ", sum(is.na(control_grp[marker]))))
-    print(paste("Available:", sum(!is.na(control_grp[marker]))))
+    print(paste("NA: ", sum(is.na(to_test[marker]))))
+    print(paste("Available:", sum(!is.na(to_test[marker]))))
     print("")
 
-    fit <- brm(formula, data=control_grp, iter=2000, chains=1)
+    fit <- brm(formula, data=to_test, iter=2000, chains=1, family=cumulative("logit"))
     summary(fit)
     
     fname <- paste("../images/",marker,".jpeg", sep="")
