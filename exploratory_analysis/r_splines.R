@@ -9,14 +9,15 @@ filtered <- read.csv("../data/filtered.csv")
 
 patient_grp <- filtered[filtered$REGISTRATION_ID < 2,]
 patient_grp$ESM_ABDPAIN2 <- patient_grp$ESM_ABDPAIN + 1
-test_grp <- filtered[filtered$REGISTRATION_ID > 2,]
+control_grp <- filtered[filtered$REGISTRATION_ID > 2,]
+control_grp$ESM_ABDPAIN2 <- control_grp$ESM_ABDPAIN + 1
 
-columns <- names(patient_grp)
+columns <- names(control_grp)
 columns <- columns[grepl("ESM_", columns)]
 columns <- columns[!columns %in% c("ESM_ABDPAIN","ESM_ABDPAIN2","ESM_START","ESM_END")] # Removes ESM_ABDPAIN (target)
 
 if(test_mode){
-  patient_grp <- patient_grp[0:100,]
+  patient_grp <- control_grp[0:100,]
   columns <- c("ESM_GAS2","ESM_GAS1")
 }
 
@@ -28,11 +29,11 @@ for(marker in columns){
     }
     formula <- as.formula(formula)
     print(formula)
-    print(paste("NA: ", sum(is.na(patient_grp[marker]))))
-    print(paste("Available:", sum(!is.na(patient_grp[marker]))))
+    print(paste("NA: ", sum(is.na(control_grp[marker]))))
+    print(paste("Available:", sum(!is.na(control_grp[marker]))))
     print("")
 
-    fit <- brm(formula, data=patient_grp, iter=2000, chains=1)
+    fit <- brm(formula, data=control_grp, iter=2000, chains=1)
     summary(fit)
     
     fname <- paste("../images/",marker,".jpeg", sep="")
