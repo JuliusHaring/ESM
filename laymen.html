@@ -1,0 +1,43 @@
+<HTML>
+    <BODY>
+        <h1>Finding patterns in irritable bowel syndrome patient data</h1>
+        <h2>Students: Jakub Gdula, Stephan Delhey, Virginia Ardevol Martinez, Ariadna Saladrigas Pernias, Julius Haring</h2>
+        <h2>Supervisors: Pietro Bonizzi, Christof Seiler </h2>
+        <h2>Semester: September 2019 - Februar 2020</h2>
+        <h3>Keywords: Irritable Bowel Syndrom, Machine Learning, Data Mining, General Linear Model</h3>
+
+        <h3>Problem statement and motivation</h3>
+        <p>Up to 20% of the total world population suffer from Irritable Bowel Syndrom (IBS)[1], the most prevalent gastrointestinal disorder. It negatively affects the quality of patient's life, as the typical symptoms include recurrent abdominal pain, diarrhea, constipation or a combination of both. Unfortunately, the cure for IBS remains uninvented. Its diagnostics is symptom-based, meaning that there are no reliable instruments (for example gastroscope) which could measure the effectiveness of the therapy. Doctors can only base their decisions regarding treatment on patients perception of the disease.</p>
+        
+        <figure style="text-align: center;">
+            <img width="30%" src="abdominal-cavity.png" alt="">
+            <figcaption>
+                Figure 1:  Abdominal intestines
+            </figcaption>
+        </figure>
+        
+        <p>The project, conducted with the collaboration between the Department of Internal Medicine at the Maastricht University Medical Center and DKE students, aims to investigate the presence of IBS triggers in the data gathered from 73 subjects.</p>
+        <p>Currently, end of day questionnaires are the are the most common reporting method. Patients are asked to answer a set of questions related to IBS (eg. pain, amount of stress, stool frequency) once per day. It is argued, however, that their evaluations are affected by recall bias, as our memory is not a true representation of the past. For example, it has been proven that patients tend to report the peak rather than the average of pain encountered on that specific day. Considering the above, a new method for recording therapy effectiveness, based on momentary reporting, has been proposed. In this new method, called Electronic Experience Sampling Methodology (ESM)[2], the patients are asked to answer questionnaires up to 10 times per day. For the purpose of the research, a smartphone app was developed. The app would beep at 10 random times through the day, asking the patient to fill the questionnaire in a momentary manner, i.e. how does he feel now, what did he eat, is he feeling any pain, etc. We hope that ESM method is more representative to find out the causes of IBM. In total, 37 IBS patients and 36 control patients used ESM method for a week.</p>
+        <p>The insights gained from our statistical analysis could improve IBS diagnosis, treatment and therefore patient’s well-being.</p>
+
+        <h3>Research questions and hypothesises</h3>
+        <p>One goal of this research is a statistical report about what contributes to irritable bowel syndrome, from a fixed set of symptoms. If there are interactions between any of the ESM entries and the overall subjective pain of IBS patients, their influence should be quantified using various mathematical models, based on so called General Linear Models and correlation measurements. This means, that one should be able to predict whether and how much pain a patient has, based on subjective pain ratings given during an ESM measurement.</p>
+        <p>Additionally, after modeling the ESM data in a mathematical way, another goal is to compare the outcome of these measurements to the old diagnostic system, namely end-of-day-diaries. The possibility of ESM being superior to Daily Diaries should therefore be validated or rejected.</p>
+
+        <h3>Main outcomes</h3>
+        <p>Throughout this project we used a multitude of approaches to find the best fit for describing the aggregated data and to look for correlations between different features of it. One of our main problems was the huge amount of missing values in our dataset. We started by evaluating different State-of-the-Art techniques, like Principal Component Analysis or Moving Average, to fill in these values, but realized quickly that the amount of missing data was to much to use any of these techniques. We therefore had to use mathematical models to get rid of these problems.</p>
+        <p>Finally, we were able to fit a model to the data and started seeing some promising results. We were able to find relations between different features of the data, for example between the stress level and the abdominal pain of a patient, and also predict the abdominal pain a patient will suffer based on a set of features.</p>
+
+        <h3>References</h3>
+        <ol>
+            <li> L. Vork-R. Lousberg D. M. A. E. Jonkers D. Keszthelyi M. A. Hesselink T.J.  C.  Van  Schagen  J. </li>
+            <li>L. Vork-R. Lousberg D. M. A. E. Jonkers D. Keszthelyi M. A. Hesselink T.J.  C.  Van  Schagen  J.  Van  Os  A.  A.  M.  Masclee  J.  W.  Kruimel  Z.  Mujagic,C. Leue.  The experience sampling method - a new digital tool for symptomassessment in ibs: an exploratory study.Neurogastroenterol Motil, 12624, 2015.</li>
+        </ol>
+
+        <h3>Downloads</h3>
+        <ul>
+            <li><a href="abdominal-cavity.png" target="_blank">Abdominal Intensities</a></li>
+            <li><a href="MRP_Proposal_Pietro.pdf" target="_blank">Project Proposal</a></li>
+        </ul>
+    </BODY>
+</HTML>

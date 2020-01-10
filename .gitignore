@@ -1,2 +1,6 @@
 data/*.csv
 .ipynb_*
+.ipynb_checkpoints/
+.history
+
+venv/
