@@ -21,9 +21,9 @@ if(test_mode){
   columns <- c("ESM_GAS2","ESM_GAS1")
 }
 
-to_test <- patient_grp
+to_test <- control_grp
 
-for(marker in rev(unique(columns))){
+for(marker in columns){
   try({
     formula <- paste("ESM_ABDPAIN2~","s(",marker,",by=REGISTRATION_ID, bs='fs')")
     if(test_mode){

@@ -32,7 +32,7 @@ for(marker in columns){
     print(paste("Available:", sum(!is.na(to_test[marker]))))
     print("")
 
-    fit <- brm(formula, data=to_test, iter=2000, chains=1)
+    fit <- brm(formula, data=to_test, iter=1000, chains=1, family=cumulative("logit"))
     summary(fit)
     
     fname <- paste("../images/",marker,".jpeg", sep="")
