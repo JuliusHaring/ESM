@@ -22,6 +22,7 @@ if(test_mode){
 }
 
 to_test <- control_grp
+eval_types <- c('bars', 'bars_grouped', 'boxplot', 'data', 'dens', 'dens_overlay', 'ecdf_overlay', 'error_binned', 'error_hist', 'error_hist_grouped', 'error_scatter', 'error_scatter_avg', 'error_scatter_avg_vs_x', 'freqpoly', 'freqpoly_grouped', 'hist', 'intervals', 'intervals_data', 'intervals_grouped', 'loo_intervals', 'loo_pit', 'loo_pit_overlay', 'loo_pit_qq', 'loo_ribbon', 'ribbon', 'ribbon_data', 'ribbon_grouped', 'rootogram', 'scatter', 'scatter_avg', 'scatter_avg_grouped', 'stat', 'stat_2d', 'stat_freqpoly_grouped', 'stat_grouped', 'violin_grouped')
 
 for(marker in columns){
   try({
@@ -38,10 +39,14 @@ for(marker in columns){
     fit <- brm(formula, data=to_test, iter=1000, chains=1, family=cumulative("logit"))
     summary(fit)
     
-    fname <- paste("../images/",marker,".jpeg", sep="")
-    jpeg(filename = fname,width=3.25,height=3.25,units="in",res=300)
-    print(plot(marginal_effects(fit), ask=FALSE, plot=FALSE)[[1]] + ggplot2::xlim(0,10) + ggplot2::ylim(1,11) +scale_y_continuous(name="ESM_ABDPAIN", limits=c(0, 10)))
-    dev.off()
-    dev.off()
+    for(eval_type in eval_types){
+      try({
+      fname <- paste("../images/evaluations/",marker,"_",eval_type,".jpeg", sep="")
+      jpeg(filename = fname,width=3.25,height=3.25,units="in",res=300)
+      print(pp_check(fit,paste(eval_type)))
+      dev.off()
+      dev.off()
+      })
+    }
   })
 }
