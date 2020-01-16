@@ -26,7 +26,7 @@ eval_types <- c('bars', 'bars_grouped', 'boxplot', 'data', 'dens', 'dens_overlay
 
 for(marker in columns){
   try({
-    formula <- paste("ESM_ABDPAIN2~","s(",marker,",by=REGISTRATION_ID, bs='fs')")
+    formula <- paste("ESM_ABDPAIN2~s(",marker,",by=REGISTRATION_ID, bs='fs')")
     if(test_mode){
       formula <- paste("ESM_ABDPAIN2~","",marker)
     }
@@ -39,10 +39,18 @@ for(marker in columns){
     fit <- brm(formula, data=to_test, iter=1000, chains=1, family=cumulative("logit"))
     summary(fit)
     
+    fname <- paste("../images/",marker,".jpeg", sep="")
+    jpeg(filename = fname,width=3.25,height=3.25,units="in",res=300)
+    print(plot(marginal_effects(fit), ask=FALSE, plot=FALSE)[[1]] + ggplot2::xlim(0,10) + ggplot2::ylim(1,11) +scale_y_continuous(name="ESM_ABDPAIN", limits=c(0, 10)))
+    dev.off()
+    dev.off()
+    
     for(eval_type in eval_types){
       try({
-      fname <- paste("../images/evaluations/",marker,"_",eval_type,".jpeg", sep="")
-      jpeg(filename = fname,width=3.25,height=3.25,units="in",res=300)
+      foldername <- "../images/evaluations/"
+      filename <- paste(foldername,marker,"/",eval_type,".jpeg", sep="")
+      dir.create(file.path(foldername, marker), showWarnings = FALSE)
+      jpeg(filename = filename,width=3.25,height=3.25,units="in",res=300)
       print(pp_check(fit,paste(eval_type)))
       dev.off()
       dev.off()
