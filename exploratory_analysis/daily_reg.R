@@ -6,25 +6,26 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 raw <- read.csv("../data/raw.csv")
 raw$ESM_ABDPAIN2 <- raw$ESM_ABDPAIN + 1
+raw$Pain2 <- raw$Pain + 1
 
 raw <- sqldf("select * FROM raw group by REGISTRATION_ID, DAY")
 
-raw <- raw[ , which(names(raw) %in% c("REGISTRATION_ID","ESM_ABDPAIN2","Diary_discomfort", "Diary_belching", "Diary_bloating", "Diary_flatulence", "Diary_diarrhea", "Diary_constipation", "Diary_urge"))]
+raw <- raw[ , which(names(raw) %in% c("REGISTRATION_ID","ESM_ABDPAIN2","Pain2","Diary_discomfort", "Diary_belching", "Diary_bloating", "Diary_flatulence", "Diary_diarrhea", "Diary_constipation", "Diary_urge"))]
 
 patient_grp <- raw[raw$REGISTRATION_ID < 2,]
-%patient_grp <- patient_grp[ , -which(names(raw) %in% c("REGISTRATION_ID"))]
+#patient_grp <- patient_grp[ , -which(names(raw) %in% c("REGISTRATION_ID"))]
 control_grp <- raw[raw$REGISTRATION_ID > 2,]
-%control_grp <- control_grp[ , -which(names(raw) %in% c("REGISTRATION_ID"))]
+#control_grp <- control_grp[ , -which(names(raw) %in% c("REGISTRATION_ID"))]
 
 columns <- names(patient_grp)
-to_test <- control_grp
+to_test <- patient_grp
 
 for(marker in columns){
-  if(marker == "REGISTRATION_ID" || marker == "ESM_ABDPAIN2"){
+  if(marker == "REGISTRATION_ID" || marker == "ESM_ABDPAIN2" || marker == "Pain2"){
     next
   }
   try({
-    formula <- paste("ESM_ABDPAIN2~","s(",marker,",by=REGISTRATION_ID, bs='fs')")
+    formula <- paste("Pain2~","s(",marker,",by=REGISTRATION_ID, bs='fs')")
     
     formula <- as.formula(formula)
     print(formula)
