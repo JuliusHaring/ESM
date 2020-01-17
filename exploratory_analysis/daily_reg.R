@@ -38,7 +38,7 @@ for(marker in columns){
     
     fname <- paste("../images/",marker,".jpeg", sep="")
     jpeg(filename = fname,width=3.25,height=3.25,units="in",res=300)
-    print(plot(marginal_effects(fit), ask=FALSE, plot=FALSE)[[1]] + ggplot2::xlim(0,10) + ggplot2::ylim(1,11) +scale_y_continuous(name="ESM_ABDPAIN", limits=c(0, 10)))
+    print(plot(marginal_effects(fit), ask=FALSE, plot=FALSE)[[1]] + ggplot2::xlim(0,10) + ggplot2::ylim(1,11) +scale_y_continuous(name="Pain", limits=c(0, 10)))
     dev.off()
     dev.off()
   })
