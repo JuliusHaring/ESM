@@ -24,7 +24,7 @@ if(test_mode){
 to_test <- patient_grp
 eval_types <- c('bars', 'bars_grouped', 'boxplot', 'data', 'dens', 'dens_overlay', 'ecdf_overlay', 'error_binned', 'error_hist', 'error_hist_grouped', 'error_scatter', 'error_scatter_avg', 'error_scatter_avg_vs_x', 'freqpoly', 'freqpoly_grouped', 'hist', 'intervals', 'intervals_data', 'intervals_grouped', 'loo_intervals', 'loo_pit', 'loo_pit_overlay', 'loo_pit_qq', 'loo_ribbon', 'ribbon', 'ribbon_data', 'ribbon_grouped', 'rootogram', 'scatter', 'scatter_avg', 'scatter_avg_grouped', 'stat', 'stat_2d', 'stat_freqpoly_grouped', 'stat_grouped', 'violin_grouped')
 
-for(marker in columns){
+for(marker in c("ESM_GOOD","ESM_WORRIED","ESM_RELAXED","ESM_MUSCLES","ESM_JOINTS")){
   try({
     formula <- paste("ESM_ABDPAIN2~s(",marker,",by=REGISTRATION_ID, bs='fs')")
     if(test_mode){
